@@ -1,0 +1,9 @@
+# Dependencias y artefactos
+/node_modules
+/dist
+/.angular
+/out-tsc
+/.vscode
+*.log
+.env
+.env.*

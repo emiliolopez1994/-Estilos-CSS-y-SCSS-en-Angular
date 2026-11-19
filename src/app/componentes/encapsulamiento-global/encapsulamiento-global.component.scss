@@ -1,0 +1,13 @@
+/* Con None este selector NO se aísla en el componente: afecta otros elementos que usen la clase. */
+.insignia-global {
+  display: inline-flex;
+  align-items: center;
+  padding: 8px 12px;
+  border-radius: 9px;
+  background: rgba(139, 92, 246, .18);
+  color: #c6a9ff;
+  border: 1px solid rgba(139, 92, 246, .30);
+  font-size: 11px;
+  font-weight: 750;
+}
+body.theme-light .insignia-global { color: #6b46ba; background: #ede9fe; }

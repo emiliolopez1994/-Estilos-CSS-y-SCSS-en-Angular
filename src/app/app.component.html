@@ -1,0 +1,70 @@
+<div class="shell">
+  <header class="site-header">
+    <div class="brand">
+      <div class="brand-icon">A<span>.</span></div>
+      <div class="brand-copy">
+        <strong>Angular<span>Styles</span></strong>
+        <small>CSS + SCSS LABORATORIO</small>
+      </div>
+    </div>
+    <div class="header-actions">
+      <span class="lesson-label">Práctica 05 <span class="lesson-dot">·</span> Desarrollo frontend</span>
+      <button type="button" class="theme-toggle" (click)="toggleTema()" [attr.aria-pressed]="esTemaClaro">
+        <span class="toggle-symbol">{{ esTemaClaro ? '☾' : '☀' }}</span>
+        {{ esTemaClaro ? 'Modo oscuro' : 'Modo claro' }}
+      </button>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="hero-copy">
+        <div class="kicker"><span class="live-dot"></span> PRÁCTICA INTERACTIVA DE ANGULAR</div>
+        <h1>El estilo también<br><em>es funcional.</em></h1>
+        <p>Un catálogo de productos donde cada interacción demuestra los conceptos de <strong>SCSS</strong>, encapsulamiento y estilos dinámicos en Angular.</p>
+        <div class="hero-tags"><span>SCSS avanzado</span><span>ngClass + ngStyle</span><span>ViewEncapsulation</span></div>
+      </div>
+      <div class="hero-panel">
+        <div class="panel-top"><span class="panel-led"></span> VISTA PREVIA EN VIVO <span class="panel-right">ANGULAR 20</span></div>
+        <div class="panel-art"><div class="art-glow"></div><span class="art-code">&lt;style&gt;</span><span class="art-word">SCSS</span><span class="art-code closing">&lt;/style&gt;</span></div>
+        <div class="panel-bottom"><span>Estilos reactivos</span><span>● Compilado con Angular</span></div>
+      </div>
+    </section>
+
+    <section class="summary" aria-label="Resumen del catálogo">
+      <div class="metric"><span>PRODUCTOS</span><strong>{{ listaProductos.length | number:'2.0-0' }}</strong><small>Elementos en el catálogo</small></div>
+      <div class="metric"><span>DISPONIBLES</span><strong>{{ totalDisponibles | number:'2.0-0' }}</strong><small>Actualización dinámica</small></div>
+      <div class="metric"><span>DESTACADOS</span><strong>{{ totalDestacados | number:'2.0-0' }}</strong><small>Clases con ngClass</small></div>
+      <div class="metric metric-last"><span>TEMA ACTIVO</span><strong class="metric-theme">{{ esTemaClaro ? 'Claro' : 'Oscuro' }}</strong><small>Contexto CSS global</small></div>
+    </section>
+
+    <section class="products-section" id="productos">
+      <div class="section-heading">
+        <div><p class="eyebrow">CATÁLOGO DINÁMICO</p><h2>Explora los productos<span class="heading-dot">.</span></h2><p class="heading-description">Interactúa con cada tarjeta y observa los cambios de estilo inmediatamente.</p></div>
+        <div class="filter-tabs" role="group" aria-label="Filtrar productos">
+          <button type="button" [class.active]="filtroActual === 'todos'" (click)="cambiarFiltro('todos')">Todos</button>
+          <button type="button" [class.active]="filtroActual === 'disponibles'" (click)="cambiarFiltro('disponibles')">Disponibles</button>
+          <button type="button" [class.active]="filtroActual === 'destacados'" (click)="cambiarFiltro('destacados')">Destacados</button>
+        </div>
+      </div>
+      <div class="grid-productos" *ngIf="productosVisibles.length > 0; else vacio">
+        <app-producto-card *ngFor="let prod of productosVisibles; trackBy: trackByProducto"
+          [producto]="prod" (alternarDestacado)="alternarDestacado($event)" (alternarStock)="alternarStock($event)">
+        </app-producto-card>
+      </div>
+      <ng-template #vacio><div class="empty-state"><span>◇</span><h3>No hay productos en esta categoría</h3><p>Cambia el filtro o modifica los productos para verlos aquí.</p><button (click)="cambiarFiltro('todos')">Ver todos</button></div></ng-template>
+    </section>
+
+    <section class="learning-section">
+      <div class="learning-title"><p class="eyebrow">CONCEPTOS APLICADOS</p><h2>¿Qué estamos practicando?</h2></div>
+      <div class="learning-grid">
+        <div class="learning-card"><span class="number">01</span><h3>SCSS avanzado</h3><p>Variables, mixins, funciones y anidamiento de reglas para mantener estilos reutilizables.</p><code>_tokens.scss</code></div>
+        <div class="learning-card"><span class="number">02</span><h3>ngClass y ngStyle</h3><p>Los estilos cambian según el stock, el descuento y el estado destacado del producto.</p><code>[ngClass] · [ngStyle]</code></div>
+        <div class="learning-card"><span class="number">03</span><h3>Encapsulamiento</h3><p>Las tarjetas utilizan Emulated. La insignia siguiente utiliza None y sus estilos son globales.</p><app-encapsulamiento-global></app-encapsulamiento-global></div>
+        <div class="learning-card"><span class="number">04</span><h3>Selectores especiales</h3><p>Se utilizan :host, :host-context y ::ng-deep para el host, el tema y la personalización desde el padre.</p><code>:host · :host-context</code></div>
+      </div>
+      <p class="global-demo">Esta insignia fuera del componente también utiliza los estilos de <span class="insignia-global">ViewEncapsulation.None</span>.</p>
+    </section>
+  </main>
+  <footer class="site-footer"><span>AngularStyles <b>●</b> Laboratorio de Estilos</span><span>Práctica 05 · CSS / SCSS · Angular</span></footer>
+</div>

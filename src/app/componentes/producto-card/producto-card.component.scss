@@ -1,0 +1,118 @@
+@use 'sass:color';
+@use '../../../styles/tokens' as t;
+
+// :host solo afecta al elemento <app-producto-card>.
+:host {
+  display: block;
+  min-width: 0;
+  transition: transform .24s ease;
+  &:hover { transform: translateY(-6px); }
+}
+
+// :host-context adapta el componente al tema global activado en body.
+:host-context(body.theme-light) {
+  .card-container {
+    background: #ffffff;
+    border-color: #e5e7f0;
+    box-shadow: 0 14px 30px -15px rgba(33, 50, 75, .15);
+  }
+  .titulo { color: #13233f; }
+  .descripcion, .overline { color: #64748b; }
+  .precio-sub { color: #64748b; }
+  .btn-accion { background: #f6f8fc; color: #273958; border-color: #e2e8f0; }
+  .btn-destacar { background: #ede9fe; color: #6438b1; }
+}
+
+.card-container {
+  background: #1b2940;
+  color: #f8fafc;
+  border: 1px solid t.surface-border(#1b2940);
+  border-radius: 22px;
+  overflow: hidden;
+  @include t.card-shadow(.28);
+  transition: border-color .2s ease, box-shadow .2s ease, background .3s ease;
+
+  &.destacado {
+    border-color: color.change(t.$secondary-color, $alpha: .88);
+    box-shadow: 0 0 0 1px rgba(139, 92, 246, .18), 0 18px 38px -16px rgba(139, 92, 246, .30);
+  }
+  &.sin-stock {
+    .visual img { filter: grayscale(.8); opacity: .62; }
+    .precio-principal { opacity: .8; }
+  }
+}
+
+.visual {
+  height: 225px;
+  position: relative;
+  overflow: hidden;
+  background: radial-gradient(circle at 47% 37%, #3d466f, #15213d 76%);
+  display: grid;
+  place-items: center;
+  &.visual-1 { background: radial-gradient(circle at 55% 50%, #344b77, #111e37 77%); }
+  &.visual-2 { background: radial-gradient(circle at 55% 50%, #533267, #1c1d39 77%); }
+  &.visual-3 { background: radial-gradient(circle at 55% 50%, #315e69, #12263d 77%); }
+  img { width: 100%; max-width: 275px; max-height: 172px; object-fit: contain; position: relative; margin-top: 25px; filter: drop-shadow(0 22px 13px rgba(0,0,0,.28)); transition: transform .3s, filter .3s, opacity .3s; }
+  &:hover img { transform: scale(1.045) rotate(-1deg); }
+}
+
+.badge-container {
+  position: absolute;
+  z-index: 1;
+  display: flex;
+  gap: 6px;
+  top: 15px;
+  left: 16px;
+  right: 16px;
+  flex-wrap: wrap;
+  .badge {
+    font-size: 10px;
+    letter-spacing: .02em;
+    font-weight: 800;
+    padding: 7px 10px;
+    border-radius: 100px;
+    background: #253957;
+    color: #e7eeff;
+  }
+  .badge-destacado { background: #8b5cf6; color: #fff; }
+  .badge-stock { background: #154d48; color: #7cf7c9; }
+  .badge-agotado { background: #583044; color: #ffc3cf; }
+}
+.esquina-categoria {
+  position: absolute;
+  bottom: 13px;
+  left: 16px;
+  background: rgba(5, 14, 33, .48);
+  color: #dce6fb;
+  border: 1px solid rgba(255,255,255,.13);
+  padding: 5px 10px;
+  border-radius: 9px;
+  font-size: 11px;
+  font-weight: 700;
+}
+.contenido { padding: 20px 20px 19px; }
+.overline { color: #a9b7d4; letter-spacing: .13em; font-size: 9px; font-weight: 800; margin: 0 0 9px; }
+.titulo { font-size: 19px; font-weight: 850; color: #fff; letter-spacing: -.03em; margin: 0; }
+.descripcion { color: #aabbd2; font-size: 12px; line-height: 1.65; min-height: 41px; margin: 10px 0 20px; }
+.precio-box { display: flex; align-items: flex-end; justify-content: space-between; gap: 7px; padding-top: 15px; border-top: 1px solid rgba(149, 165, 193, .15); }
+.precio-principal { line-height: 1; letter-spacing: -.05em; }
+.precio-sub { display: flex; gap: 5px; color: #9faec8; font-size: 11px; align-items: center; flex-wrap: wrap; justify-content: flex-end; }
+.precio-original { text-decoration: line-through; }
+.descuento { padding: 4px 6px; border-radius: 7px; background: rgba(34, 195, 165, .17); color: #2ee4b4; font-weight: 800; }
+.acciones { display: flex; gap: 8px; margin-top: 20px; }
+.btn-accion {
+  cursor: pointer;
+  min-height: 35px;
+  flex: 1;
+  border: 1px solid #374661;
+  color: #cfdaee;
+  background: #223450;
+  border-radius: 10px;
+  font-weight: 700;
+  font-size: 10px;
+  transition: background .2s, transform .2s;
+  @include t.focus-ring();
+  &:hover { transform: translateY(-1px); background: #2e4261; }
+}
+.btn-destacar { color: #d1b9ff; }
+@media(max-width: 420px) { .acciones { flex-direction: column; } .visual { height: 185px; } }

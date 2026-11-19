@@ -1,0 +1,33 @@
+@use 'sass:color';
+@use './styles/tokens' as t;
+
+// Estilos globales: esta hoja se incluye desde angular.json.
+:root {
+  font-family: 'Segoe UI', Inter, system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+html { min-height: 100%; }
+body {
+  margin: 0;
+  min-height: 100vh;
+  background: t.$bg-dark;
+  color: t.$text-light;
+  transition: background-color .35s ease, color .35s ease;
+}
+button { font: inherit; }
+button, a { -webkit-tap-highlight-color: transparent; }
+button:focus-visible, a:focus-visible { outline: 3px solid t.$secondary-color; outline-offset: 3px; }
+button:disabled { cursor: not-allowed; }
+
+body.theme-light {
+  color-scheme: light;
+  background: t.$bg-light;
+  color: t.$text-dark;
+}
+
+::selection { background: color.change(t.$secondary-color, $alpha: .42); }

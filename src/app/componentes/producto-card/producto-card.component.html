@@ -1,0 +1,41 @@
+<article class="card-container" [ngClass]="{
+  'destacado': producto.destacado,
+  'sin-stock': !producto.enStock
+}">
+  <div class="visual" [ngClass]="'visual-' + producto.id">
+    <div class="badge-container">
+      <span *ngIf="producto.destacado" class="badge badge-destacado">★ Destacado</span>
+      <span class="badge" [ngClass]="producto.enStock ? 'badge-stock' : 'badge-agotado'">
+        {{ producto.enStock ? '● En stock' : '● Agotado' }}
+      </span>
+    </div>
+    <img [src]="producto.imagen" [alt]="'Imagen ilustrativa de ' + producto.nombre" loading="lazy">
+    <span class="esquina-categoria">{{ producto.categoria }}</span>
+  </div>
+
+  <div class="contenido">
+    <p class="overline">PRODUCTO · {{ producto.id.toString().padStart(2, '0') }}</p>
+    <h3 class="titulo">{{ producto.nombre }}</h3>
+    <p class="descripcion">{{ producto.descripcion }}</p>
+
+    <div class="precio-box">
+      <div class="precio-principal" [ngStyle]="getEstiloPrecio()">{{ precioFinal | currency:'USD':'symbol':'1.2-2' }}</div>
+      <div class="precio-sub">
+        <span *ngIf="producto.descuento > 0" class="precio-original">{{ producto.precio | currency:'USD':'symbol':'1.2-2' }}</span>
+        <span *ngIf="producto.descuento > 0" class="descuento">−{{ producto.descuento }}%</span>
+        <span *ngIf="producto.descuento === 0">Precio regular</span>
+      </div>
+    </div>
+
+    <div class="acciones">
+      <button class="btn-accion btn-destacar" type="button" (click)="alternarDestacado.emit(producto.id)"
+        [attr.aria-pressed]="producto.destacado">
+        {{ producto.destacado ? '★ Quitar destacado' : '☆ Destacar producto' }}
+      </button>
+      <button class="btn-accion btn-stock" type="button" (click)="alternarStock.emit(producto.id)"
+        [attr.aria-label]="'Cambiar disponibilidad de ' + producto.nombre">
+        {{ producto.enStock ? 'Marcar agotado' : 'Reponer stock' }}
+      </button>
+    </div>
+  </div>
+</article>
